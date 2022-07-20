@@ -66,7 +66,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="@color/pink_400"
+        android:background="@color/pink_300"
         app:layout_constraintBottom_toTopOf="@id/tv_option_4"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintEnd_toStartOf="@id/tv_option_5"
