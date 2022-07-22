@@ -15,15 +15,15 @@ import com.example.composition.domain.entities.GameResult
 import com.example.composition.domain.entities.GameSettings
 import com.example.composition.domain.entities.Level
 import com.example.composition.presentation.viewmodels.GameViewModel
+import com.example.composition.presentation.viewmodels.GameViewModelFactory
 
 class GameFragment : Fragment() {
 
-    lateinit var level: Level
+    private val viewModelFactory: GameViewModelFactory by lazy {
+        GameViewModelFactory(requireActivity().application, level)
+    }
     private val viewModel: GameViewModel by lazy {
-        ViewModelProvider(
-            this,
-            ViewModelProvider.AndroidViewModelFactory.getInstance(requireActivity().application)
-        )[GameViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
     }
     private val tvOptions by lazy {
         mutableListOf<TextView>().apply {
@@ -35,6 +35,7 @@ class GameFragment : Fragment() {
             add(binding.tvOption6)
         }
     }
+    lateinit var level: Level
 
     private var _binding: FragmentGameBinding? = null
     private val binding: FragmentGameBinding
@@ -58,7 +59,6 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeViewModel()
         setClickListenersForOptions()
-        viewModel.startGame(level)
     }
 
     override fun onDestroyView() {
