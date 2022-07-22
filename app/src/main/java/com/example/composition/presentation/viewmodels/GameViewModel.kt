@@ -63,6 +63,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     fun startGame(level: Level) {
         getGameSettings(level)
         startTimer()
+        updateProgress()
         generateQuestion()
     }
 
@@ -117,7 +118,8 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
             override fun onFinish() {
                 finishGame()
             }
-        }.start()
+        }
+        timer?.start()
     }
 
     private fun generateQuestion() {
